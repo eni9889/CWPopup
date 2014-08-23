@@ -224,26 +224,13 @@ NSString const *CWPopupViewOffset = @"CWPopupViewOffset";
 
         CGRect finalFrame = [self getPopupFrameForViewController:viewControllerToPresent];
         // parallax setup if iOS7+
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-            UIInterpolatingMotionEffect *interpolationHorizontal = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-            interpolationHorizontal.minimumRelativeValue = @-10.0;
-            interpolationHorizontal.maximumRelativeValue = @10.0;
-            UIInterpolatingMotionEffect *interpolationVertical = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-            interpolationHorizontal.minimumRelativeValue = @-10.0;
-            interpolationHorizontal.maximumRelativeValue = @10.0;
-            [self.popupViewController.view addMotionEffect:interpolationHorizontal];
-            [self.popupViewController.view addMotionEffect:interpolationVertical];
-        }
-#endif
         // shadow setup
         viewControllerToPresent.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
         viewControllerToPresent.view.layer.shadowColor = [UIColor blackColor].CGColor;
-        viewControllerToPresent.view.layer.shadowRadius = 3.0f;
+        viewControllerToPresent.view.layer.shadowRadius = 0.0f;
         viewControllerToPresent.view.layer.shadowOpacity = 0.8f;
         viewControllerToPresent.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:viewControllerToPresent.view.layer.bounds].CGPath;
         // rounded corners
-        viewControllerToPresent.view.layer.cornerRadius = 5.0f;
         // blurview
         if (self.useBlurForPopup) {
             [self addBlurView];
